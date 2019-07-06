@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Function start</title>
+    <style>
+        .msgBox {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 242px;
+            background: #eee;
+        }
+
+        .msgBox p {
+            line-height: 1.5;
+            padding: 10px 20px;
+            padding-left: 82px;
+            background-position: 25px center;
+            background-repeat: no-repeat;
+            color: #333;
+        }
+
+        .msgBox button {
+            background: none;
+            border: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 1.1rem;
+            color: #aaa;
+        }
+    </style>
+</head>
+
+<body>
+    <button>Display message box</button>
+
+    <script>
+        var btn = document.querySelector('button');
+
+        btn.onclick = function () {
+            displayMessage('Your inbox is almost full - delete some emails', 'warning');//(msgText, msgType)
+            //displayMessage('Pat: Hi there, how are you today?', 'chat');
+        };
+
+        function displayMessage(msgText, msgType) {
+            var html = document.querySelector('html');//pulls from html element for storage
+
+            var panel = document.createElement('div');//creates <div> for use
+            panel.setAttribute('class', 'msgBox');//sets a class attribute labeled msgBox for CSS
+            html.appendChild(panel);//appends panel div to html element
+
+            var msg = document.createElement('p');
+            msg.textContent = msgText;
+            panel.appendChild(msg);
+
+            var closeBtn = document.createElement('button');
+            closeBtn.textContent = 'x';
+            panel.appendChild(closeBtn);
+
+            closeBtn.onclick = function () {//onclick event handler used to close message box
+                panel.parentNode.removeChild(panel);
+            }
+            if (msgType === 'warning') {//refers to msgType in function displayMessage
+                msg.style.backgroundImage = 'url(icons/warning.png)';
+                panel.style.backgroundColor = 'red';
+            }
+            else if (msgType === 'chat') {
+                msg.style.backgroundImage = 'url(icons/chat.png)';
+                panel.style.backgroundColor = 'aqua';
+            }
+            else {
+                msg.style.paddingLeft = '20px';
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
